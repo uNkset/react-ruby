@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import ButtonGroup from './ButtonGroup';
 
 function Post(props: any) {
-  const { post } = props;
+  const { post, dispatch } = props;
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
 
@@ -38,6 +39,9 @@ function Post(props: any) {
     <div>
       <div className="row">
         <div className="col-8">{titleElement}</div>
+        <div className="col-4">
+          <ButtonGroup post_id={post.id} dispatch={dispatch} />
+        </div>
       </div>
       <div className="row">
         <div className="col-8">{bodyElement}</div>
