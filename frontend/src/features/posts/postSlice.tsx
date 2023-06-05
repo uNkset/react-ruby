@@ -79,22 +79,77 @@ export const postSlice = createSlice({
   reducers: {}, // sync actions
   extraReducers: (builder) => {
     builder
+      /** Fetch Posts */
       .addCase(fetchPostsAsync.pending, (state) => {
-        return produce(state, (draft) => {
-          draft.status = Statuses.Loading;
+        return produce(state, (draftState) => {
+          draftState.status = Statuses.Loading;
         });
       })
       .addCase(fetchPostsAsync.fulfilled, (state, action) => {
-        return produce(state, (draft) => {
-          draft.posts = action.payload;
-          draft.status = Statuses.UpToDate;
+        return produce(state, (draftState) => {
+          draftState.posts = action.payload;
+          draftState.status = Statuses.UpToDate;
         });
       })
       .addCase(fetchPostsAsync.rejected, (state) => {
-        return produce(state, (draft) => {
-          draft.status = Statuses.Error;
+        return produce(state, (draftState) => {
+          draftState.status = Statuses.Error;
+        });
+      })
+      /** Create Post */
+      .addCase(createPostAsync.pending, (state) => {
+        return produce(state, (draftState) => {
+          draftState.status = Statuses.Loading;
+        });
+      })
+      .addCase(createPostAsync.fulfilled, (state, action) => {
+        return produce(state, (draftState) => {
+          draftState.posts.push(action.payload);
+          draftState.status = Statuses.UpToDate;
+        });
+      })
+      .addCase(createPostAsync.rejected, (state) => {
+        return produce(state, (draftState) => {
+          draftState.status = Statuses.Error;
         });
       });
+    /** Destroy Post */
+    //   .addCase(destroyPostAsync.pending, (state) => {
+    //     return produce(state, (draftState) => {
+    //       draftState.status = Statuses.Loading;
+    //     });
+    //   })
+    //   .addCase(destroyPostAsync.fulfilled, (state, action) => {
+    //     return produce(state, (draftState) => {
+    //       draftState.posts = action.payload;
+    //       draftState.status = Statuses.UpToDate;
+    //     });
+    //   })
+    //   .addCase(destroyPostAsync.rejected, (state) => {
+    //     return produce(state, (draftState) => {
+    //       draftState.status = Statuses.Error;
+    //     });
+    //   })
+    //   /** Update Post */
+    //   .addCase(updatePostAsync.pending, (state) => {
+    //     return produce(state, (draftState) => {
+    //       draftState.status = Statuses.Loading;
+    //     });
+    //   })
+    //   .addCase(updatePostAsync.fulfilled, (state, action) => {
+    //     return produce(state, (draftState) => {
+    //       const index = draftState.posts.findIndex(
+    //         (post) => post.id === action.payload.id
+    //       );
+    //       draftState.posts[index] = action.payload;
+    //       draftState.status = Statuses.UpToDate;
+    //     });
+    //   })
+    //   .addCase(updatePostAsync.rejected, (state) => {
+    //     return produce(state, (draftState) => {
+    //       draftState.status = Statuses.Error;
+    //     });
+    //   });
   },
 });
 
