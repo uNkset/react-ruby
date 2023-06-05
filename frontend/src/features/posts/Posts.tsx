@@ -6,13 +6,12 @@ import {
   selectStatus,
   Statuses,
 } from './postSlice';
+import Post from './Post';
 
 function Posts() {
   const posts = useAppSelector(selectPosts);
   const status = useAppSelector(selectStatus);
   const dispatch = useAppDispatch();
-
-  console.log(posts);
 
   useEffect(() => {
     dispatch(fetchPostsAsync());
@@ -29,11 +28,10 @@ function Posts() {
           <h3>{status}</h3>
           {posts &&
             posts.length > 0 &&
-            posts.map(({ id, title, body }) => {
+            posts.map((post) => {
               return (
-                <div key={id} style={{ margin: '5em' }}>
-                  {title} <br />
-                  {body}
+                <div key={post.id} style={{ margin: '5em' }}>
+                  <Post post={post} />
                 </div>
               );
             })}
