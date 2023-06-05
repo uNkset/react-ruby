@@ -29,10 +29,11 @@ function Posts() {
           <h3>{status}</h3>
           {posts &&
             posts.length > 0 &&
-            posts.map((post) => {
+            posts.map(({ id, title, body }) => {
               return (
-                <div key={post.id} style={{ margin: '5em' }}>
-                  {post.title}
+                <div key={id} style={{ margin: '5em' }}>
+                  {title} <br />
+                  {body}
                 </div>
               );
             })}
